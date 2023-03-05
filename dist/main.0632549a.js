@@ -37144,7 +37144,7 @@ var THREE = _interopRequireWildcard(require("three"));
 var _OrbitControls = require("three/examples/jsm/controls/OrbitControls");
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-// 目标：使用控制器查看3d物体
+// 目标：物体缩放
 
 // 导入轨道控制器
 
@@ -37172,6 +37172,18 @@ var cubeMaterial = new THREE.MeshBasicMaterial({
 
 // 根据几何体和材质创建物体
 var cube = new THREE.Mesh(cubeGepmetry, cubeMaterial);
+
+// 修改物体的位置
+//cube.position.set(5,0,0)
+cube.position.x = 3;
+
+// 缩放
+// cube.scale.set(3,2,1)
+// cube.scale.x = 5
+
+// 旋转,旋转x轴
+cube.rotation.set(Math.PI / 4, 0, 0);
+
 //将几何体添加到场景当中
 scene.add(cube);
 
@@ -37193,6 +37205,11 @@ var controls = new _OrbitControls.OrbitControls(camera, renderer.domElement);
 var axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 function render() {
+  cube.position.x += 0.01;
+  cube.rotation.x += 0.01;
+  if (cube.position.x > 5) {
+    cube.position.x = 0;
+  }
   renderer.render(scene, camera);
   // 渲染下一帧的时候就会调用render函数
   requestAnimationFrame(render);
