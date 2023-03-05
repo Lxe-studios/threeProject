@@ -1,7 +1,5 @@
 import * as THREE from 'three'
 
-// 目标：使用控制器查看3d物体
-
 // 1.创建场景
 const scene = new THREE.Scene()
 
@@ -35,5 +33,3 @@ document.body.appendChild(renderer.domElement)
 
 // 使用渲染器通过相机将场景渲染进来
 renderer.render(scene,camera)
-
-
