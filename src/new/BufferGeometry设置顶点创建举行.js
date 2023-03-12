@@ -147,6 +147,3 @@ window.addEventListener('resize',() => {
     // 设置渲染器的像素比
     renderer.setPixelRatio(window.devicePixelRatio)
 })
-
-
-

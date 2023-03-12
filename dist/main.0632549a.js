@@ -45051,11 +45051,16 @@ scene.add(camera);
 
 // 添加物体
 // 创建集合体对象
-var gepmetry = new THREE.BufferGeometry();
-var vertices = Float32Array([-1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0]);
-var Material = new THREE.MeshBasicMaterial({
+var geometry = new THREE.BufferGeometry();
+var vertices = new Float32Array([-1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0]);
+geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+var material = new THREE.MeshBasicMaterial({
   color: 0xffff00
 });
+
+// 
+var mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
 
 // 初始化渲染器
 var renderer = new THREE.WebGLRenderer();
@@ -45179,7 +45184,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62319" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53766" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
