@@ -1,6 +1,8 @@
 import * as THREE from 'three'
+// 导入动画库
+import  gsap  from 'gsap'
 
-// 目标：物体缩放
+// 目标：掌握gsap设置各种动画效果
 
 // 导入轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
@@ -31,7 +33,7 @@ const cube = new THREE.Mesh(cubeGepmetry, cubeMaterial)
 
 // 修改物体的位置
 //cube.position.set(5,0,0)
-cube.position.x = 3
+cube.position.x = 0
 
 // 缩放
 // cube.scale.set(3,2,1)
@@ -61,17 +63,49 @@ const controls = new OrbitControls(camera,renderer.domElement)
 const axesHelper = new THREE.AxesHelper(5)
 scene.add(axesHelper)
 
-function render(time) {
-    // cube.position.x += 0.01
-    // cube.rotation.x += 0.01
+// 设置时钟
+const clock = new THREE.Clock()
+// 设置动画
+gsap.to(cube.position,{
+    x: 5,
+    duration: 5, 
+    ease: 'power1.inOut', 
+    repeat: -1,
+    // 延迟2s执行
+    delay: 2,
+    // 往返运动
+    yoyo: true,
+    onComplete: () => {
+    console.log('====================================');
+    console.log('动画完成');
+    console.log('====================================');
+}})
+// repeat 设置重复次数， -1无限制重复
+gsap.to(cube.rotation, {
+    x: 2 * Math.PI,
+    duration: 5, 
+    ease: 'power1.inOut',
+    repeat: 2,
+
+})
+
+function render() {
+    
+    // let t = time / 1000
+    // cube.position.x = t * 1
     // if(cube.position.x > 5) {
     //     cube.position.x = 0
     // }
-    let t = time / 1000
-    cube.position.x = t * 1
-    if(cube.position.x > 5) {
-        cube.position.x = 0
-    }
+    
+    // let deltaTime = clock.getDelta()
+    
+    // 获取时钟运行的总时长
+    // let time = clock.getElapsedTime()
+
+
+
+    
+
     renderer.render(scene,camera)
     // 渲染下一帧的时候就会调用render函数
     requestAnimationFrame(render)
