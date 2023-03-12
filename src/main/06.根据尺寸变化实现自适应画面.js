@@ -1,10 +1,8 @@
 import * as THREE from 'three'
 // 导入动画库
 import  gsap  from 'gsap'
-// 导入dat.gui
-import * as dat from 'dat.gui'
 
-// 目标：全屏和退出全屏
+// 目标：掌握gsap设置各种动画效果
 
 // 导入轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
@@ -26,18 +24,26 @@ scene.add(camera)
 
 // 添加物体
 // 创建集合体对象
-const gepmetry = new THREE.BufferGeometry()
+const cubeGepmetry = new THREE.BoxBufferGeometry(1,1,1)
+const cubeMaterial = new THREE.MeshBasicMaterial({color:0xffff00})
 
-const vertices = Float32Array([
-    -1.0,-1.0,1.0,
-    1.0,-1.0,1.0,
-    1.0,1.0,1.0
-])
-
-const Material = new THREE.MeshBasicMaterial({color:0xffff00})
+// 根据几何体和材质创建物体
+const cube = new THREE.Mesh(cubeGepmetry, cubeMaterial)
 
 
+// 修改物体的位置
+//cube.position.set(5,0,0)
+cube.position.x = 0
 
+// 缩放
+// cube.scale.set(3,2,1)
+// cube.scale.x = 5
+
+// 旋转,旋转x轴
+cube.rotation.set(Math.PI / 4,0,0)
+
+//将几何体添加到场景当中
+scene.add(cube)
 
 // 初始化渲染器
 const renderer = new THREE.WebGLRenderer()
@@ -62,49 +68,42 @@ scene.add(axesHelper)
 // 设置时钟
 const clock = new THREE.Clock()
 // 设置动画
-// let animate1 = gsap.to(cube.position,{
-//     x: 5,
-//     duration: 5, 
-//     ease: 'power1.inOut', 
-//     repeat: -1,
-//     // 延迟2s执行
-//     delay: 2,
-//     // 往返运动
-//     yoyo: true,
-//     onComplete: () => {
-//         console.log('====================================');
-//         console.log('动画完成');
-//         console.log('====================================');
-//     },
-//     onStart: () => {
-//         console.log('动画开始')
-//     }
-// })
+let animate1 = gsap.to(cube.position,{
+    x: 5,
+    duration: 5, 
+    ease: 'power1.inOut', 
+    repeat: -1,
+    // 延迟2s执行
+    delay: 2,
+    // 往返运动
+    yoyo: true,
+    onComplete: () => {
+        console.log('====================================');
+        console.log('动画完成');
+        console.log('====================================');
+    },
+    onStart: () => {
+        console.log('动画开始')
+    }
+})
 // repeat 设置重复次数， -1无限制重复
-// gsap.to(cube.rotation, {
-//     x: 2 * Math.PI,
-//     duration: 5, 
-//     ease: 'power1.inOut',
-//     repeat: 2,
+gsap.to(cube.rotation, {
+    x: 2 * Math.PI,
+    duration: 5, 
+    ease: 'power1.inOut',
+    repeat: 2,
 
-// })
+})
 
 // 监听双击事件
 window.addEventListener('dblclick', () => {
-    // if(animate1.isActive()) {
-    //     // 暂停
-    //     animate1.pause()
-    // } else {
-    //     // 恢复
-    //     animate1.resume()
-        const fullScreenElement = document.fullscreenElement
-        if(fullScreenElement) {
-            // 双击控制屏幕进入全屏，退出全屏
-            document.exitFullscreen()
-        } else {
-            renderer.domElement.requestFullscreen()
-        }
-    
+    if(animate1.isActive()) {
+        // 暂停
+        animate1.pause()
+    } else {
+        // 恢复
+        animate1.resume()
+    }
 })
 
 function render() {
@@ -140,6 +139,3 @@ window.addEventListener('resize',() => {
     // 设置渲染器的像素比
     renderer.setPixelRatio(window.devicePixelRatio)
 })
-
-
-
