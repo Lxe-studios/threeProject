@@ -45030,7 +45030,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 // 导入dat.gui
 
-// 目标：全屏和退出全屏
+// 目标：打造酷炫的三角形
 
 // 导入轨道控制器
 
@@ -45051,16 +45051,23 @@ scene.add(camera);
 
 // 添加物体
 // 创建集合体对象
-var geometry = new THREE.BufferGeometry();
-var vertices = new Float32Array([-1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0]);
-geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-var material = new THREE.MeshBasicMaterial({
-  color: 0xffff00
-});
 
-// 
-var mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+for (var i = 0; i < 50; i++) {
+  // 每一个三角形需要三个顶点，每个顶点需要3个值
+  var geometry = new THREE.BufferGeometry();
+  var positionArray = new Float32Array(9);
+  for (var j = 0; j < 9; j++) {
+    positionArray[j] = Math.random() * 10 - 5;
+  }
+  geometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3));
+  var color = new THREE.Color(Math.random(), Math.random(), Math.random());
+  var material = new THREE.MeshBasicMaterial({
+    color: color,
+    transparent: true
+  });
+  var mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+}
 
 // 初始化渲染器
 var renderer = new THREE.WebGLRenderer();
@@ -45084,42 +45091,9 @@ scene.add(axesHelper);
 
 // 设置时钟
 var clock = new THREE.Clock();
-// 设置动画
-// let animate1 = gsap.to(cube.position,{
-//     x: 5,
-//     duration: 5, 
-//     ease: 'power1.inOut', 
-//     repeat: -1,
-//     // 延迟2s执行
-//     delay: 2,
-//     // 往返运动
-//     yoyo: true,
-//     onComplete: () => {
-//         console.log('====================================');
-//         console.log('动画完成');
-//         console.log('====================================');
-//     },
-//     onStart: () => {
-//         console.log('动画开始')
-//     }
-// })
-// repeat 设置重复次数， -1无限制重复
-// gsap.to(cube.rotation, {
-//     x: 2 * Math.PI,
-//     duration: 5, 
-//     ease: 'power1.inOut',
-//     repeat: 2,
-
-// })
 
 // 监听双击事件
 window.addEventListener('dblclick', function () {
-  // if(animate1.isActive()) {
-  //     // 暂停
-  //     animate1.pause()
-  // } else {
-  //     // 恢复
-  //     animate1.resume()
   var fullScreenElement = document.fullscreenElement;
   if (fullScreenElement) {
     // 双击控制屏幕进入全屏，退出全屏
