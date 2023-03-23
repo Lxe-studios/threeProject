@@ -45049,25 +45049,41 @@ camera.position.set(0, 0, 10);
 //相机添加到场景
 scene.add(camera);
 
-// 添加物体
-// 创建集合体对象
+// 导入纹理
+var textureLoader = new THREE.TextureLoader();
+var doorColorTexture = textureLoader.load('./texture/11d7e63e_E735249_37b7eda8.jpg');
+var doorAplhsTexture = textureLoader.load('./texture/10036648_162938775000_2.jpg');
 
-for (var i = 0; i < 50; i++) {
-  // 每一个三角形需要三个顶点，每个顶点需要3个值
-  var geometry = new THREE.BufferGeometry();
-  var positionArray = new Float32Array(9);
-  for (var j = 0; j < 9; j++) {
-    positionArray[j] = Math.random() * 10 - 5;
-  }
-  geometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3));
-  var color = new THREE.Color(Math.random(), Math.random(), Math.random());
-  var material = new THREE.MeshBasicMaterial({
-    color: color,
-    transparent: true
-  });
-  var mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
-}
+// 添加物体
+var cubeGeometry = new THREE.BoxBufferGeometry(1, 1, 1);
+// 材质
+var material = new THREE.MeshStandardMaterial({
+  color: '#ffff00',
+  map: doorColorTexture,
+  alphaMap: doorAplhsTexture,
+  transparent: true
+});
+var cube = new THREE.Mesh(cubeGeometry, material);
+scene.add(cube);
+
+// 添加平面
+var plane = new THREE.Mesh(new THREE.PlaneBufferGeometry(1, 1), material);
+plane.position.set(3, 0, 0);
+scene.add(plane);
+
+// 灯光 (颜色，强度)
+// 环境光
+// const light = new THREE.AmbientLight(0xfffff,3)
+// 直线光源
+var directionalLigth = new THREE.DirectionalLight(0xfffff, 2);
+
+// 位置
+directionalLigth.position.set(10, 10, 10);
+
+//scene.add(light)
+scene.add(directionalLigth);
+
+// 创建集合体对象
 
 // 初始化渲染器
 var renderer = new THREE.WebGLRenderer();
@@ -45158,7 +45174,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53766" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56453" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

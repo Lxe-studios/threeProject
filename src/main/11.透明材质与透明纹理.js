@@ -33,35 +33,24 @@ const doorAplhsTexture = textureLoader.load('./texture/10036648_162938775000_2.j
 // 添加物体
 const cubeGeometry = new THREE.BoxBufferGeometry(1,1,1)
 // 材质
-const material = new THREE.MeshStandardMaterial({
+const basicMaterial = new THREE.MeshBasicMaterial({
     color: '#ffff00',
     map: doorColorTexture,
     alphaMap: doorAplhsTexture,
     transparent: true
 })
-const cube = new THREE.Mesh(cubeGeometry, material)
+const cube = new THREE.Mesh(cubeGeometry, basicMaterial)
 
 scene.add(cube)
 
 // 添加平面
 const plane = new THREE.Mesh(
     new THREE.PlaneBufferGeometry(1,1),
-    material
+    basicMaterial
 )
 plane.position.set(3,0,0)
 scene.add(plane)
 
-// 灯光 (颜色，强度)
-// 环境光
-// const light = new THREE.AmbientLight(0xfffff,3)
-// 直线光源
-const directionalLigth = new THREE.DirectionalLight(0xfffff,2)
-
-// 位置
-directionalLigth.position.set(10,10,10)
-
-//scene.add(light)
-scene.add(directionalLigth)
 
 // 创建集合体对象
 
@@ -137,6 +126,3 @@ window.addEventListener('resize',() => {
     // 设置渲染器的像素比
     renderer.setPixelRatio(window.devicePixelRatio)
 })
-
-
-
