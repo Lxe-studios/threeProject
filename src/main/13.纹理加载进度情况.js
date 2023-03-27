@@ -4,13 +4,7 @@ import  gsap  from 'gsap'
 // 导入dat.gui
 import * as dat from 'dat.gui'
 
-import { RGBLoader } from 'three/examples/jsm/loaders/RGBELoader'
-
-// 加载hdr环境图
-// const rgbeLoader = new RGBLoader()
-// rgbeLoader.loadAsync('./texture/11d7e63e_E735249_37b7eda8.jpg').then((texture) => {
-//     scene.background = texture
-// })
+// 目标：打造酷炫的三角形
 
 // 导入轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
@@ -164,6 +158,3 @@ window.addEventListener('resize',() => {
     // 设置渲染器的像素比
     renderer.setPixelRatio(window.devicePixelRatio)
 })
-
-
-
