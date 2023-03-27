@@ -45393,7 +45393,9 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 // 加载hdr环境图
 // const rgbeLoader = new RGBLoader()
 // rgbeLoader.loadAsync('./texture/11d7e63e_E735249_37b7eda8.jpg').then((texture) => {
+//     texture.mapping = THREE.EquirectangularReflectionMapping
 //     scene.background = texture
+//     scene.environment = texture
 // })
 
 // 导入轨道控制器
